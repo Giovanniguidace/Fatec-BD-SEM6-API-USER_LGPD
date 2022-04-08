@@ -10,7 +10,7 @@ class Profile(models.Model):
     usr_cpf = models.CharField("CPF", max_length=45, null=False)
     usr_telefone = models.CharField("Telefone", max_length=45, null=True)
     usr_datacriacao = models.DateTimeField(auto_now_add=True, null=True)
-    uxr_dataatualizacao = models.DateTimeField(auto_now=True, null=True)
+    usr_dataatualizacao = models.DateTimeField(auto_now=True, null=True)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
