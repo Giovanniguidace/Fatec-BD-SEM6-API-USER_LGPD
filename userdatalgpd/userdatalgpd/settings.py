@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'userdatalgpd.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': '',
+        'NAME': 'db_userlgpd',
         'USER': '',
         'PASSWORD': '',
         'HOST': 'localhost',
