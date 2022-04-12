@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
 
+    #CORS
+    'corsheaders',
+
     #APPLICATION
     'api',
 ]
@@ -49,12 +52,18 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+#CORS_ORIGIN_ALLOW_ALL = False
+#CORS_ORIGIN_WHITELIST = (
+#    'http://localhost:8080',
+#)
 
 ROOT_URLCONF = 'userdatalgpd.urls'
 
@@ -85,7 +94,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'db_userlgpd',
         'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'PASSWORD': 'pg@123',
         'HOST': 'localhost',
         'PORT': '5432',
     }
