@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from .models import *
 from django.contrib.auth.models import User
+from django.db import models
 
 class userSystemSerializer(serializers.ModelSerializer):
 
@@ -16,7 +17,9 @@ class userSystemSerializer(serializers.ModelSerializer):
             'email',
             'is_active',
             'date_joined'
+
         )
+
 
 class profileSerializer(serializers.ModelSerializer):
 
@@ -29,7 +32,6 @@ class profileSerializer(serializers.ModelSerializer):
             'usr_datacriacao',
             'usr_dataatualizacao'
         )
-
 
 class termoSerializer(serializers.ModelSerializer):
 

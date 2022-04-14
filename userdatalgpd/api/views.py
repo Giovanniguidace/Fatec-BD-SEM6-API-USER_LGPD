@@ -17,7 +17,7 @@ from rest_framework.response import Response
 
 from rest_framework.decorators import api_view
 
-@api_view(['GET', 'POST', 'PUT', 'DELETE'])
+@api_view(['GET', 'POST'])
 def usersSystem_list(request):
     if request.user.is_authenticated:
         if request.method == 'GET':
@@ -26,15 +26,14 @@ def usersSystem_list(request):
             return Response(serializer.data)
         elif request.method == 'POST':
             serializer = userSystemSerializer(data=request.data)
-# PAREI AQUI
             if serializer.is_valid():
-                for data in serializer:
-                    user = User.objects.create_user(serializer)
-                    print("data: ", data.name)
-                    print("value: ", data.value)
-
-                user.save()
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
+                password = request.data.get('password')
+                username = request.data.get('username')
+                first_name = request.data.get('first_name')
+                last_name = request.data.get('last_name')
+                email = request.data.get('email')
+                User.objects.create_user(username=username, password=password, first_name=first_name, last_name=last_name, email=email)
+                return Response(status=status.HTTP_201_CREATED)
             return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response(status=status.HTTP_401_UNAUTHORIZED)
@@ -46,14 +45,23 @@ def user_system(request, pk):
             user = User.objects.get(id=pk)
         except User.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
-
         if request.method == 'GET':
             serializer = userSystemSerializer(user)
             return Response(serializer.data)
         elif request.method == 'PUT':
             serializer = userSystemSerializer(user, data=request.data)
             if serializer.is_valid():
-                serializer.save()
+                user.set_password(request.data.get('password'))
+                user.username = request.data.get('username')
+                user.first_name = request.data.get('first_name')
+                user.last_name = request.data.get('last_name')
+                user.email = request.data.get('email')
+                user.save()
+                try:
+                    user = User.objects.get(id=pk)
+                except User.DoesNotExist:
+                    return Response(status=status.HTTP_404_NOT_FOUND)
+                serializer = userSystemSerializer(user)
                 return Response(serializer.data, status=status.HTTP_200_OK)
             return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
         elif request.method == 'DELETE':
@@ -63,10 +71,23 @@ def user_system(request, pk):
         return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 
-@api_view(['GET', 'POST', 'PUT', 'DELETE'])
-def profiles_list():
-    profiles = Profile.objects.all()
-    return profiles
+@api_view(['GET', 'POST'])
+def profiles_list(request):
+    if request.user.is_authenticated:
+        if request.method == 'GET':
+            profiles = Profile.objects.all()
+            serializer = profileSerializer(profiles, many=True)
+            return Response(serializer.data)
+        elif request.method == 'POST':
+            serializer = profileSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+
 
 class profilesApiView(generics.ListCreateAPIView):
     queryset = Profile.objects.all()
