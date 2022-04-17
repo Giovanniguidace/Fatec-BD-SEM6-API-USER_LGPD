@@ -22,17 +22,17 @@ def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
 class tbTermo(models.Model):
-    ter_id = models.IntegerField("Termo ID", primary_key=True)
+    ter_id = models.AutoField("Termo ID", primary_key=True, )
     ter_nome = models.CharField("Nome Termo", max_length=45, null=False)
     
 class tbVersaoTermo(models.Model):
-    vte_id = models.IntegerField("Versão Termo ID", primary_key=True)
+    vte_id = models.AutoField("Versão Termo ID", primary_key=True)
     fk_ter_id = models.ForeignKey(tbTermo, verbose_name="ID Termo", on_delete=models.CASCADE, null=False)
     vte_versao = models.CharField("Versão Termo", max_length=10, null=False)
     vte_conteudo = models.CharField("Conteudo Termo", max_length=1000, null=False)
 
 class tb_vte_usr(models.Model):
-    vte_usr_id = models.IntegerField("VTE X USR", primary_key=True)
+    vte_usr_id = models.AutoField("VTE X USR", primary_key=True)
     fk_usr_id = models.ForeignKey(User, null=False, verbose_name="ID Usuário", on_delete=models.CASCADE)
     fk_vte_id = models.ForeignKey(tbVersaoTermo, verbose_name="ID Versão Termo", on_delete=models.CASCADE)
 
@@ -60,7 +60,7 @@ class tbClienteExterno(models.Model):
 
 
 class tb_usr_cle(models.Model):
-    usr_cle_id = models.IntegerField("USR X CLE", primary_key=True)
+    usr_cle_id = models.AutoField("USR X CLE", primary_key=True)
     fk_usr_id = models.ForeignKey(User, verbose_name="Usuário ID", null=False, on_delete=models.CASCADE)
     fk_cle_cnpj = models.ForeignKey(tbClienteExterno, verbose_name="Cliente Externo ID", null=False, on_delete=models.CASCADE)
 
@@ -68,7 +68,7 @@ class tb_usr_cle(models.Model):
         unique_together = (('fk_usr_id', 'fk_cle_cnpj'),)
 
 class tb_cle_gpa(models.Model):
-    cle_gpa_id = models.IntegerField("CLE X GPA", primary_key=True)
+    cle_gpa_id = models.AutoField("CLE X GPA", primary_key=True)
     fk_cle_cnpj = models.ForeignKey(tbClienteExterno, verbose_name="Cnpj Cliente Externo", on_delete=models.CASCADE, null=False)
     fk_gpa_id = models.ForeignKey(Group, verbose_name="Grupo Acesso ID", on_delete=models.CASCADE, null=False)
 

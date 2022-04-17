@@ -4,6 +4,7 @@ from rest_framework import generics
 from django.shortcuts import render
 
 from .models import *
+from .utils import *
 from django.contrib.auth.models import User
 # Create your views here.
 
@@ -17,102 +18,88 @@ from rest_framework.response import Response
 
 from rest_framework.decorators import api_view
 
+
+""" 
+VIEWS: Views referente ao gerenciamento de usuários do sistema.
+"""
+
 @api_view(['GET', 'POST'])
-def usersSystem_list(request):
-    if request.user.is_authenticated:
-        if request.method == 'GET':
-            users = User.objects.all()
-            serializer = userSystemSerializer(users, many=True)
-            return Response(serializer.data)
-        elif request.method == 'POST':
-            serializer = userSystemSerializer(data=request.data)
-            if serializer.is_valid():
-                password = request.data.get('password')
-                username = request.data.get('username')
-                first_name = request.data.get('first_name')
-                last_name = request.data.get('last_name')
-                email = request.data.get('email')
-                User.objects.create_user(username=username, password=password, first_name=first_name, last_name=last_name, email=email)
-                return Response(status=status.HTTP_201_CREATED)
-            return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
-    else:
-        return Response(status=status.HTTP_401_UNAUTHORIZED)
+def getUsuariosView(request):
+   return getAllUsers(request, User, userSystemSerializer)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def user_system(request, pk):
-    if request.user.is_authenticated:
-        try:
-            user = User.objects.get(id=pk)
-        except User.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-        if request.method == 'GET':
-            serializer = userSystemSerializer(user)
-            return Response(serializer.data)
-        elif request.method == 'PUT':
-            serializer = userSystemSerializer(user, data=request.data)
-            if serializer.is_valid():
-                user.set_password(request.data.get('password'))
-                user.username = request.data.get('username')
-                user.first_name = request.data.get('first_name')
-                user.last_name = request.data.get('last_name')
-                user.email = request.data.get('email')
-                user.save()
-                try:
-                    user = User.objects.get(id=pk)
-                except User.DoesNotExist:
-                    return Response(status=status.HTTP_404_NOT_FOUND)
-                serializer = userSystemSerializer(user)
-                return Response(serializer.data, status=status.HTTP_200_OK)
-            return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
-        elif request.method == 'DELETE':
-            user.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-    else:
-        return Response(status=status.HTTP_401_UNAUTHORIZED)
+def getUsuarioView(request, pk):
+    return getOneUser(request,pk,User, userSystemSerializer)
 
 
 @api_view(['GET', 'POST'])
-def profiles_list(request):
-    if request.user.is_authenticated:
-        if request.method == 'GET':
-            profiles = Profile.objects.all()
-            serializer = profileSerializer(profiles, many=True)
-            return Response(serializer.data)
-        elif request.method == 'POST':
-            serializer = profileSerializer(data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(status=status.HTTP_201_CREATED)
-            return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
-    else:
-        return Response(status=status.HTTP_401_UNAUTHORIZED)
+def getProfiles(request):
+    return getAllList(request, Profile, profileSerializer)
 
 
+"""
+VIEWS: Views referente ao cadastro de termos e versões dos termos no qual cada usuário realizará a aceitação
+via sistema.
+"""
 
-class profilesApiView(generics.ListCreateAPIView):
-    queryset = Profile.objects.all()
-    serializer_class = profileSerializer
+@api_view(['GET', 'POST'])
+def getTermosView(request):
+    return getAllList(request, tbTermo, termoSerializer)
 
-class termosApiView(generics.ListCreateAPIView):
-    queryset = tbTermo.objects.all()
-    serializer_class = termoSerializer
+@api_view(['GET', 'PUT', 'DELETE'])
+def getTermoView(request, pk):
+    return getOneList(request, pk, tbTermo, termoSerializer)
 
-class versoesTermosApiView(generics.ListCreateAPIView):
-    queryset = tbVersaoTermo.objects.all()
-    serializer_class = versaoTermoSerializer
+@api_view(['GET', 'POST'])
+def getVersoesTermoView(request):
+    return getAllList(request, tbVersaoTermo, versaoTermoSerializer)
 
-class vteUsrApiView(generics.ListCreateAPIView):
-    queryset = tb_vte_usr.objects.all()
-    serializer_class = vteUsrSerializer
+@api_view(['GET', 'PUT', 'DELETE'])
+def getVersaoTermoView(request, pk):
+    return getOneList(request, pk, tbVersaoTermo, versaoTermoSerializer)
 
-class clientesExternoApiView(generics.ListCreateAPIView):
-    queryset = tbClienteExterno.objects.all()
-    serializer_class = clienteExternoSerializer
 
-class usrCleApiView(generics.ListCreateAPIView):
-    queryset = tb_usr_cle.objects.all()
-    serializer_class = usrCleSerializer
+"""
+VIEWS: View referente à relação entre Versão do Termo e Usuários
+"""
 
-class cleGpaApiView(generics.ListCreateAPIView):
-    queryset = tb_cle_gpa.objects.all()
-    serializer_class = cleGpaSerializer
+@api_view(['GET', 'POST'])
+def getVtesUsrsView(request):
+    return getAllList(request, tb_vte_usr, vteUsrSerializer)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def getVteUsrView(request, pk):
+    return getOneList(request, pk, tb_vte_usr, vteUsrSerializer)
+
+
+"""
+VIEWS: Views referente ao cadastro de clientes externos que terão acesso à API.
+"""
+
+@api_view(['GET', 'POST'])
+def getClientesExternosView(request):
+    return getAllList(request, tbClienteExterno, clienteExternoSerializer)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def getClienteExternoView(request, pk):
+    return getOneList(request, pk, tbClienteExterno, clienteExternoSerializer)
+
+
+"""
+VIEWS: Views referente à relação de Usuários e Clientes Externo. Cada cliente externo possui um
+usuário de acesso com token.
+"""
+
+@api_view(['GET', 'POST'])
+def getUsrsClesView(request):
+    return getAllList(request, tb_usr_cle, usrCleSerializer)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def getUsrCleView(request, pk):
+    return getOneList(request, pk, tb_usr_cle, usrCleSerializer)
+
+
+"""
+VIEWS: Views referente aos tokens criados para cada usuário do sistema.
+"""
+
