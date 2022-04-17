@@ -41,13 +41,13 @@ class tb_vte_usr(models.Model):
 
 
 class tbClienteExterno(models.Model):
-    cle_cnpj = models.CharField('CNPJ', primary_key=True, max_length=14)
+    cle_cnpj = models.CharField('CNPJ', primary_key=True, max_length=20)
     cle_razaosocial = models.CharField('Razão Social', max_length=100, null=False)
     cle_unidade = models.CharField('Unidade', max_length=50, null=True)
     cle_ie = models.CharField('Inscrição Estadual', null=True, max_length=12)
     cle_im = models.CharField('Inscrição Municipal', null=True, max_length=11)
     cle_endereco = models.CharField('Endereço', max_length=150, null=False)
-    cle_numero = models.IntegerField('Número', null=False)
+    cle_numero = models.CharField('Número', null=False, max_length=10)
     cle_complemento = models.CharField('Complemento', max_length=100, null=True)
     cle_bairro = models.CharField('Bairro', max_length=50, null=False)
     cle_cep = models.CharField('CEP', null=False, max_length=9)

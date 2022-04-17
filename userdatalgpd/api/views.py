@@ -5,7 +5,7 @@ from django.shortcuts import render
 
 from .models import *
 from .utils import *
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 # Create your views here.
 
 from .serializers import *
@@ -25,16 +25,15 @@ VIEWS: Views referente ao gerenciamento de usuários do sistema.
 
 @api_view(['GET', 'POST'])
 def getUsuariosView(request):
-   return getAllUsers(request, User, userSystemSerializer)
+   return getAllUsers(request, User, readOnlyUserSerializer, UserSerializer)
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def getUsuarioView(request, pk):
-    return getOneUser(request,pk,User, userSystemSerializer)
+    return getOneUser(request,pk,User, readOnlyUserSerializer, UserSerializer)
 
-
-@api_view(['GET', 'POST'])
-def getProfiles(request):
-    return getAllList(request, Profile, profileSerializer)
+@api_view(['PUT'])
+def putProfile(request, pk):
+    return getAllList(request,User, profileSerializer, readOnlyUserSerializer)
 
 
 """
@@ -99,7 +98,16 @@ def getUsrCleView(request, pk):
     return getOneList(request, pk, tb_usr_cle, usrCleSerializer)
 
 
+
 """
-VIEWS: Views referente aos tokens criados para cada usuário do sistema.
+VIEWS: Views referente à criação de grupos de acesso de Usuários. Permitida a criação 
+apenas por administradores do sistema.
 """
 
+@api_view(['GET', 'POST'])
+def getGroupsView(request):
+    return getAllList(request, Group, groupSystemSerializer)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def getGroupView(request):
+    return getOneList(request, Group, groupSystemSerializer)

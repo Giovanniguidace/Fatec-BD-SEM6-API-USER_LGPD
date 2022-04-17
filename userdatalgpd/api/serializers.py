@@ -1,25 +1,17 @@
 from rest_framework import serializers
 
 from .models import *
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.db import models
 
-class userSystemSerializer(serializers.ModelSerializer):
+class groupSystemSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = User
+        model = Group
         fields = (
             'id',
-            'password',
-            'username',
-            'first_name',
-            'last_name',
-            'email',
-            'is_active',
-            'date_joined'
-
+            'name'
         )
-
 
 class profileSerializer(serializers.ModelSerializer):
 
@@ -32,6 +24,40 @@ class profileSerializer(serializers.ModelSerializer):
             'usr_datacriacao',
             'usr_dataatualizacao'
         )
+
+class readOnlyUserSerializer(serializers.ModelSerializer):
+    profile = profileSerializer(Profile.objects.all())
+
+    class Meta:
+        model = User
+        fields = (
+            'id',
+            'password',
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+            'is_active',
+            'date_joined',
+            'groups',
+            'profile'
+        )
+
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = (
+            'id',
+            'password',
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+            'is_active',
+            'date_joined'
+        )
+
 
 class termoSerializer(serializers.ModelSerializer):
 
@@ -68,7 +94,22 @@ class clienteExternoSerializer(serializers.ModelSerializer):
     class Meta:
         model = tbClienteExterno
         fields = (
-            '__all__',
+            'cle_cnpj',
+            'cle_razaosocial',
+            'cle_unidade',
+            'cle_ie',
+            'cle_im',
+            'cle_endereco',
+            'cle_numero',
+            'cle_complemento',
+            'cle_bairro',
+            'cle_cep',
+            'cle_cidade',
+            'cle_uf',
+            'cle_fone1',
+            'cle_cel',
+            'cle_datacriacao',
+            'cle_dataatualizacao'
         )
 
 class usrCleSerializer(serializers.ModelSerializer):
