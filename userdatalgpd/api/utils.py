@@ -63,6 +63,15 @@ def createUser(request, User, ModelSerializer):
     last_name = request.data.get('last_name')
     email = request.data.get('email')
     username = User.objects.create_user(username=username, password=password, first_name=first_name, last_name=last_name,email=email)
+    id_user = User.objects.get(username=username).id
+    profile = Profile.objects.get(user=id_user)
+    data_profile = request.data.get('profile')
+    for index, (key, value) in enumerate(data_profile.items()):
+        if key == "usr_cpf":
+            profile.usr_cpf = value
+        if key == "usr_telefone":
+             profile.usr_telefone = value
+    profile.save()
     return username
 
 
@@ -73,6 +82,16 @@ def updateUser(request, pk,getOne, User, ModelSerializer):
     getOne.last_name = request.data.get('last_name')
     getOne.email = request.data.get('email')
     getOne.save()
+
+    profile = Profile.objects.get(user=pk)
+    data_profile = request.data.get('profile')
+    for index, (key, value) in enumerate(data_profile.items()):
+        if key == "usr_cpf":
+            profile.usr_cpf = value
+        if key == "usr_telefone":
+            profile.usr_telefone = value
+    profile.save()
+
     try:
         user = User.objects.get(id=pk)
     except User.DoesNotExist:
@@ -89,7 +108,7 @@ def getAllUsers(request, table, readOnlyUserSerializer , UserSerializer):
         elif request.method == 'POST':
             serializer = UserSerializer(data=request.data)
             if serializer.is_valid():
-                username = createUser(request, table, UserSerializer)
+                username = createUser(request, table, readOnlyUserSerializer)
                 try:
                     user = table.objects.get(username=username)
                 except table.DoesNotExist:
@@ -111,7 +130,7 @@ def getOneUser(request, pk, table, readOnlyUserSerializer, UserSerializer):
         elif request.method == 'PUT':
             serializer = UserSerializer(getOne, data=request.data)
             if serializer.is_valid():
-                return updateUser(request, pk, getOne, table, UserSerializer)
+                return updateUser(request, pk, getOne, table, readOnlyUserSerializer)
             return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
         elif request.method == 'DELETE':
             getOne.delete()
@@ -120,18 +139,16 @@ def getOneUser(request, pk, table, readOnlyUserSerializer, UserSerializer):
         return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 # PAREI AQUI
-def updateProfile(request, User, profileSerializer, readOnlyUserSerializer):
+def updateProfile(request,pk, User, profileSerializer, readOnlyUserSerializer):
          if request.method == 'PUT':
             serializer = profileSerializer(data=request.data)
             if serializer.is_valid():
-                id_user =  request.data.get('user')
-                usr_cpf =  request.data.get('usr_cpf')
-                usr_telefone =  request.data.get('usr_telefone')
-                profile = Profile()
-                profile.user = User.objects.get(id=id_user)
+                usr_cpf = request.data.get('usr_cpf')
+                usr_telefone = request.data.get('usr_telefone')
+                profile = Profile.objects.get(user=pk)
                 profile.usr_cpf = usr_cpf
                 profile.usr_telefone = usr_telefone
                 profile.save()
-                serializer = readOnlyUserSerializer(User.objects.get(id=id_user))
+                serializer = readOnlyUserSerializer(User.objects.get(id=pk))
                 return Response(serializer.data ,status=status.HTTP_200_OK)
             return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)

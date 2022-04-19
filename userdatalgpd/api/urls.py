@@ -22,7 +22,7 @@ urlpatterns = [
     # USUÁRIOS
     path('usuarios/', getUsuariosView),  # GET - POST
     path('usuarios/<str:pk>', getUsuarioView), # GET - PUT - DELETE
-    path('updateProfile/', getUsuarioView), # PUT
+    path('updateProfile/<str:pk>', putProfile), # PUT
 
 
     # GRUPOS

@@ -33,7 +33,7 @@ def getUsuarioView(request, pk):
 
 @api_view(['PUT'])
 def putProfile(request, pk):
-    return getAllList(request,User, profileSerializer, readOnlyUserSerializer)
+    return getAllList(request,pk, profileSerializer, readOnlyUserSerializer)
 
 
 """
