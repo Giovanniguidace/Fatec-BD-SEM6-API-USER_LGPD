@@ -65,11 +65,3 @@ class tb_usr_cle(models.Model):
     class Meta:
         unique_together = (('fk_usr_id', 'fk_cle_cnpj'),)
 
-class tb_cle_gpa(models.Model):
-    cle_gpa_id = models.AutoField("CLE X GPA", primary_key=True)
-    fk_cle_cnpj = models.ForeignKey(tbClienteExterno, verbose_name="Cnpj Cliente Externo", on_delete=models.CASCADE, null=False)
-    fk_gpa_id = models.ForeignKey(Group, verbose_name="Grupo Acesso ID", on_delete=models.CASCADE, null=False)
-
-    class Meta:
-        unique_together = (('fk_cle_cnpj', 'fk_gpa_id'),)
-

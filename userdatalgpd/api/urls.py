@@ -22,12 +22,14 @@ urlpatterns = [
     # USUÁRIOS
     path('usuarios/', getUsuariosView),  # GET - POST
     path('usuarios/<str:pk>', getUsuarioView), # GET - PUT - DELETE
-    path('updateProfile/<str:pk>', putProfile), # PUT
-
 
     # GRUPOS
     path('grupos/', getGroupsView),
     path('grupos/<str:pk>', getGroupView),
+
+    # GRUPOS X USUÁRIOS
+    path('usuarios/addgrupo/', addUserGroupView), # POST
+    path('usuarios/removegrupo/', removeUserGroupView), # POST
 
 ### TESTAR IMPLEMENTAÇÃO DAS ROTAS ABAIXO
     # CLIENTES EXTERNOS X USUÁRIOS

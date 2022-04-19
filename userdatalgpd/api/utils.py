@@ -2,10 +2,10 @@
 Métodos que serão utilizados pelas views.
 """
 import json
-
+from .insert_db import *
 from rest_framework import status
 from rest_framework.response import Response
-
+from django.contrib.auth.models import User, Group
 from rest_framework.authtoken.models import Token
 
 from .models import Profile
@@ -21,8 +21,8 @@ def checkPK(pk, table):
 def getAllList(request, table, ModelSerializer):
     if request.user.is_authenticated:
         if request.method == 'GET':
-            versoesTermos = table.objects.all()
-            serializer = ModelSerializer(versoesTermos, many=True)
+            dados_tabela = table.objects.all()
+            serializer = ModelSerializer(dados_tabela, many=True)
             return Response(serializer.data)
         elif request.method == 'POST':
             serializer = ModelSerializer(data=request.data)
@@ -138,17 +138,46 @@ def getOneUser(request, pk, table, readOnlyUserSerializer, UserSerializer):
     else:
         return Response(status=status.HTTP_401_UNAUTHORIZED)
 
-# PAREI AQUI
-def updateProfile(request,pk, User, profileSerializer, readOnlyUserSerializer):
-         if request.method == 'PUT':
-            serializer = profileSerializer(data=request.data)
+
+def addUsuarioGrupo(request,usrGpaSerializer, groupsUserSerializer):
+        if request.method == 'POST':
+            serializer = usrGpaSerializer(data=request.data)
             if serializer.is_valid():
-                usr_cpf = request.data.get('usr_cpf')
-                usr_telefone = request.data.get('usr_telefone')
-                profile = Profile.objects.get(user=pk)
-                profile.usr_cpf = usr_cpf
-                profile.usr_telefone = usr_telefone
-                profile.save()
-                serializer = readOnlyUserSerializer(User.objects.get(id=pk))
-                return Response(serializer.data ,status=status.HTTP_200_OK)
+                id_user = request.data.get('id_user')
+                try:
+                    user = User.objects.get(id=id_user)
+                except User.DoesNotExist:
+                    return Response(status=status.HTTP_404_NOT_FOUND)
+
+                group_name = request.data.get('group_name')
+                try:
+                    grupo = Group.objects.get(name=group_name)
+                except User.DoesNotExist:
+                    return Response(status=status.HTTP_404_NOT_FOUND)
+
+                grupo.user_set.add(user)
+                serializer = groupsUserSerializer(user)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
             return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+
+
+def removeUsuarioGrupo(request,usrGpaSerializer, groupsUserSerializer):
+    if request.method == 'POST':
+        serializer = usrGpaSerializer(data=request.data)
+        if serializer.is_valid():
+            id_user = request.data.get('id_user')
+            try:
+                user = User.objects.get(id=id_user)
+            except User.DoesNotExist:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+
+            group_name = request.data.get('group_name')
+            try:
+                grupo = Group.objects.get(name=group_name)
+            except User.DoesNotExist:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+
+            grupo.user_set.remove(user)
+            serializer = groupsUserSerializer(user)
+            return Response(serializer.data,status=status.HTTP_204_NO_CONTENT)
+        return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)

@@ -31,10 +31,6 @@ def getUsuariosView(request):
 def getUsuarioView(request, pk):
     return getOneUser(request,pk,User, readOnlyUserSerializer, UserSerializer)
 
-@api_view(['PUT'])
-def putProfile(request, pk):
-    return getAllList(request,pk, profileSerializer, readOnlyUserSerializer)
-
 
 """
 VIEWS: Views referente ao cadastro de termos e versões dos termos no qual cada usuário realizará a aceitação
@@ -109,5 +105,14 @@ def getGroupsView(request):
     return getAllList(request, Group, groupSystemSerializer)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def getGroupView(request):
-    return getOneList(request, Group, groupSystemSerializer)
+def getGroupView(request,pk):
+    return getOneList(request,pk, Group, groupSystemSerializer)
+
+@api_view(['POST'])
+def addUserGroupView(request):
+    return addUsuarioGrupo(request,usrGpaSerializer, groupsUserSerializer)
+
+@api_view(['POST'])
+def removeUserGroupView(request):
+    return removeUsuarioGrupo(request,usrGpaSerializer, groupsUserSerializer)
+

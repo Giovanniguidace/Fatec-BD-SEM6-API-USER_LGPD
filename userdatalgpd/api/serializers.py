@@ -27,7 +27,6 @@ class profileSerializer(serializers.ModelSerializer):
 
 class readOnlyUserSerializer(serializers.ModelSerializer):
     profile = profileSerializer(Profile.objects.all())
-
     class Meta:
         model = User
         fields = (
@@ -122,12 +121,24 @@ class usrCleSerializer(serializers.ModelSerializer):
             'fk_cle_cnpj'
         )
 
-class cleGpaSerializer(serializers.ModelSerializer):
+class usrGpaSerializer(serializers.Serializer):
+    id_user = serializers.IntegerField()
+    group_name = serializers.CharField()
 
     class Meta:
-        model = tb_cle_gpa
         fields = (
-            'cle_gpa_id',
-            'fk_cle_cnpj',
-            'fk_gpa_id'
+            'id_user',
+            'group_name'
+        )
+
+class groupsUserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = (
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+            'groups'
         )
