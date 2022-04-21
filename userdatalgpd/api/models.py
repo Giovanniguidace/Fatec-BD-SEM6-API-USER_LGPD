@@ -9,6 +9,8 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     usr_cpf = models.CharField("CPF", max_length=45, null=False)
     usr_telefone = models.CharField("Telefone", max_length=45, null=True)
+    usr_conteudoMarketing = models.BooleanField("Aceita Marketing Opt-in Opt-out?", default=False)
+    usr_aceitaCookies = models.BooleanField("Aceita Cookies?", default=False)
     usr_datacriacao = models.DateTimeField(auto_now_add=True, null=True)
     usr_dataatualizacao = models.DateTimeField(auto_now=True, null=True)
 
@@ -64,4 +66,55 @@ class tb_usr_cle(models.Model):
 
     class Meta:
         unique_together = (('fk_usr_id', 'fk_cle_cnpj'),)
+
+
+
+class historico_criacao_usuario(models.Model):
+    id = models.AutoField("id", primary_key=True)
+    id_usuario = models.IntegerField("Id Usuário", null=False)
+    nome_completo = models.CharField("Nome Usuário", max_length=100, null=False)
+    email = models.CharField("Email Usuário", max_length=50, null=False)
+    data_criacao = models.DateTimeField("Data Criação",auto_now_add=True, null=False)
+
+class historico_exclusao_usuario(models.Model):
+    id = models.AutoField("id", primary_key=True)
+    id_usuario = models.IntegerField("Id Usuário", null=False)
+    nome_completo = models.CharField("Nome Usuário", max_length=100, null=False)
+    email = models.CharField("Email Usuário", max_length=50, null=False)
+    data_exclusao = models.DateTimeField("Data Exclusão",auto_now_add=True, null=False)
+
+class historico_atualizacao_usuario(models.Model):
+    id = models.AutoField("id", primary_key=True)
+    id_usuario = models.IntegerField("Id Usuário", null=False)
+    nome_completo = models.CharField("Nome Usuário", max_length=100, null=False)
+    email = models.CharField("Email Usuário", max_length=50, null=False)
+    data_atualizacao = models.DateTimeField("Data Atualização",auto_now=True, null=False)
+
+class historico_usuario_terceiro(models.Model):
+    id = models.AutoField("id", primary_key=True)
+    id_usuario = models.IntegerField("Id Usuário", null=False)
+    cnpj_terceiro = models.CharField("Cnpj Terceiro", max_length=25, null=False)
+    data_criacao = models.DateTimeField("Data Criação",auto_now_add=True, null=True)
+
+class historico_adicao_usuario_terceiro_grupo(models.Model):
+    id = models.AutoField("id", primary_key=True)
+    id_usuario = models.IntegerField("Id Usuário", null=False)
+    cnpj_terceiro = models.CharField("Cnpj Terceiro", max_length=25, null=False)
+    nome_grupo = models.CharField("Nome Grupo", max_length=50, null=False)
+    data_adicao = models.DateTimeField("Data Adição",auto_now_add=True, null=True)
+
+class historico_remocao_usuario_terceiro_grupo(models.Model):
+    id = models.AutoField("id", primary_key=True)
+    id_usuario = models.IntegerField("Id Usuário", null=False)
+    cnpj_terceiro = models.CharField("Cnpj Terceiro", max_length=25, null=False)
+    nome_grupo = models.CharField("Nome Grupo", max_length=50, null=False)
+    data_remocao = models.DateTimeField("Data Remoção", auto_now_add=True, null=True)
+
+class historico_aceite_usuario_termo(models.Model):
+    id = models.AutoField("id", primary_key=True)
+    versao_termo = models.IntegerField("Versão Termo", null=False)
+    nome_termo = models.CharField("Nome Termo", max_length=50, null=False)
+    id_usuario = models.IntegerField("Id Usuário", null=False)
+    nome_completo_usuario = models.CharField("Nome Usuário", max_length=100, null=False)
+    data_aceite = models.DateTimeField("Data Aceite", auto_now_add=True, null=True)
 
