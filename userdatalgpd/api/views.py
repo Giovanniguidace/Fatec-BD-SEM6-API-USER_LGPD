@@ -128,3 +128,88 @@ def addUserGroupView(request):
 def removeUserGroupView(request):
     return removeUsuarioGrupo(request,usrGpaSerializer, groupsUserSerializer)
 
+"""
+VIEWS: Views referente à consulta de históricos.
+"""
+
+## HISTÓRICO DA CRIAÇÃO DE USUÁRIO
+@api_view(['GET'])
+def getAllHistoricoCriacaoUsuarioView(request):
+    grupo_view = ""
+    return getAllList(request, historico_criacao_usuario, historicoCriacaoUsuarioSerializer, grupo_view)
+
+@api_view(['GET'])
+def getOneHistoricoCriacaoUsuarioView(request, pk):
+    grupo_view = ""
+    return getOneList(request, pk, historico_criacao_usuario, historicoCriacaoUsuarioSerializer, grupo_view)
+
+## HISTÓRICO DA EXCLUSÃO DE USUÁRIO
+@api_view(['GET'])
+def getAllHistoricoExclusaoUsuarioView(request):
+    grupo_view = ""
+    return getAllList(request, historico_exclusao_usuario, historicoExclusaoUsuarioSerializer, grupo_view)
+
+@api_view(['GET'])
+def getOneHistoricoExclusaoUsuarioView(request, pk):
+    grupo_view = ""
+    return getOneList(request, pk, historico_exclusao_usuario, historicoExclusaoUsuarioSerializer, grupo_view)
+
+## HISTÓRICO DA ATUALIZAÇÃO DE USUÁRIO
+@api_view(['GET'])
+def getAllAtualizacaoExclusaoUsuarioView(request):
+    grupo_view = ""
+    return getAllList(request, historico_atualizacao_usuario, historicoAtualizacaoUsuarioSerializer, grupo_view)
+
+@api_view(['GET'])
+def getOneHistoricoAtualizacaoUsuarioView(request, pk):
+    grupo_view = ""
+    return getOneList(request, pk, historico_atualizacao_usuario, historicoAtualizacaoUsuarioSerializer, grupo_view)
+
+## HISTÓRICO DE USUÁRIO TERCEIRO
+@api_view(['GET'])
+def getAllHistoricoUsuariosTerceiroView(request):
+    grupo_view = ""
+    return getAllList(request, historico_usuario_terceiro, historicoUsuarioTerceiroSerializer, grupo_view)
+
+@api_view(['GET'])
+def getOneHistoricoUsuarioTerceiroView(request, pk):
+    grupo_view = ""
+    return getOneList(request, pk, historico_usuario_terceiro, historicoUsuarioTerceiroSerializer, grupo_view)
+
+## HISTÓRICO DE ADIÇÃO DE USUÁRIO TERCEIRO EM GRUPO DE USUÁRIO
+@api_view(['GET'])
+def getAllHistoricoAdicaoUsuarioTerceiroGrupoView(request):
+    grupo_view = ""
+    return getAllList(request, historico_adicao_usuario_terceiro_grupo, historicoAdicaoUsuarioTerceiroGrupoSerializer, grupo_view)
+
+@api_view(['GET'])
+def getOneHistoricoAdicaoUsuarioTerceiroGrupoView(request, pk):
+    grupo_view = ""
+    return getOneList(request, pk, historico_adicao_usuario_terceiro_grupo, historicoAdicaoUsuarioTerceiroGrupoSerializer, grupo_view)
+
+## HISTÓRICO DE REMOÇÃO DE USUÁRIO TERCEIRO EM GRUPO DE USUÁRIO
+@api_view(['GET'])
+def getAllHistoricoRemocaoUsuarioTerceiroGrupoView(request):
+    grupo_view = ""
+    return getAllList(request, historico_remocao_usuario_terceiro_grupo, historicoRemocaoUsuarioTerceiroGrupoSerializer, grupo_view)
+
+@api_view(['GET'])
+def getOneHistoricoRemocaoUsuarioTerceiroGrupoView(request, pk):
+    grupo_view = ""
+    return getOneList(request, pk, historico_remocao_usuario_terceiro_grupo, historicoRemocaoUsuarioTerceiroGrupoSerializer, grupo_view)
+
+## HISTÓRICO DE ACEITE DE TERMO PELO USUÁRIO
+@api_view(['GET'])
+def getAllHistoricoAceiteUsuarioTermoView(request):
+    grupo_view = ""
+    return getAllList(request, historico_aceite_usuario_termo, historicoAceiteUsuarioTermoSerializer, grupo_view)
+
+@api_view(['GET'])
+def getOneHistoricoAceiteUsuarioTermoView(request, pk):
+    grupo_view = ""
+    return getOneList(request, pk, historico_aceite_usuario_termo, historicoAceiteUsuarioTermoSerializer, grupo_view)
+
+
+
+
+

@@ -31,6 +31,9 @@ class tbVersaoTermo(models.Model):
     vte_versao = models.CharField("Versão Termo", max_length=10, null=False)
     vte_conteudo = models.CharField("Conteudo Termo", max_length=1000, null=False)
 
+    class Meta:
+        unique_together = (('fk_ter_id', 'vte_versao'),)
+
 class tb_vte_usr(models.Model):
     vte_usr_id = models.AutoField("VTE X USR", primary_key=True)
     fk_usr_id = models.ForeignKey(User, null=False, verbose_name="ID Usuário", on_delete=models.CASCADE)
@@ -99,14 +102,14 @@ class historico_usuario_terceiro(models.Model):
 class historico_adicao_usuario_terceiro_grupo(models.Model):
     id = models.AutoField("id", primary_key=True)
     id_usuario = models.IntegerField("Id Usuário", null=False)
-    cnpj_terceiro = models.CharField("Cnpj Terceiro", max_length=25, null=False)
+    cnpj_terceiro = models.CharField("Cnpj Terceiro", max_length=50, null=False)
     nome_grupo = models.CharField("Nome Grupo", max_length=50, null=False)
     data_adicao = models.DateTimeField("Data Adição",auto_now_add=True, null=True)
 
 class historico_remocao_usuario_terceiro_grupo(models.Model):
     id = models.AutoField("id", primary_key=True)
     id_usuario = models.IntegerField("Id Usuário", null=False)
-    cnpj_terceiro = models.CharField("Cnpj Terceiro", max_length=25, null=False)
+    cnpj_terceiro = models.CharField("Cnpj Terceiro", max_length=50, null=False)
     nome_grupo = models.CharField("Nome Grupo", max_length=50, null=False)
     data_remocao = models.DateTimeField("Data Remoção", auto_now_add=True, null=True)
 

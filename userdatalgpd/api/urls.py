@@ -31,7 +31,6 @@ urlpatterns = [
     path('usuarios/addgrupo/', addUserGroupView), # POST
     path('usuarios/removegrupo/', removeUserGroupView), # POST
 
-### TESTAR IMPLEMENTAÇÃO DAS ROTAS ABAIXO
     # CLIENTES EXTERNOS X USUÁRIOS
     path('clientesExternosUsuarios/', getUsrsClesView),
     path('clientesExternosUsuarios/<str:pk>', getUsrCleView),
@@ -40,8 +39,27 @@ urlpatterns = [
     path('clientesExternos/', getClientesExternosView),
     path('clientesExternos/<str:pk>', getClienteExternoView),
 
+    # HISTÓRICOS
+    path('historicoCriacaoUsuario/', getAllHistoricoCriacaoUsuarioView),
+    path('historicoCriacaoUsuario/<str:pk>', getOneHistoricoCriacaoUsuarioView),
 
+    path('historicoExclusaoUsuario/', getAllHistoricoExclusaoUsuarioView),
+    path('historicoExclusaoUsuario/<str:pk>', getOneHistoricoExclusaoUsuarioView),
 
+    path('historicoAtualizacaoUsuario/', getAllAtualizacaoExclusaoUsuarioView),
+    path('historicoAtualizacaoUsuario/<str:pk>', getOneHistoricoAtualizacaoUsuarioView),
+
+    path('historicoUsuariosTerceiro/', getAllHistoricoUsuariosTerceiroView),
+    path('historicoUsuariosTerceiro/<str:pk>', getOneHistoricoUsuarioTerceiroView),
+
+    path('historicoAdicaoUsuariosTerceiroGrupo/', getAllHistoricoAdicaoUsuarioTerceiroGrupoView),
+    path('historicoAdicaoUsuariosTerceiroGrupo/<str:pk>', getOneHistoricoAdicaoUsuarioTerceiroGrupoView),
+
+    path('historicoRemocaoUsuariosTerceiroGrupo/', getAllHistoricoRemocaoUsuarioTerceiroGrupoView),
+    path('historicoRemocaoUsuariosTerceiroGrupo/<str:pk>', getOneHistoricoRemocaoUsuarioTerceiroGrupoView),
+
+    path('historicoAceiteUsuariosTermo/', getAllHistoricoAceiteUsuarioTermoView),
+    path('historicoAceiteUsuariosTermo/<str:pk>', getOneHistoricoAceiteUsuarioTermoView),
 
     # GET TOKEN - MÉTODO POST - NECESSITA FORNECER CREDENCIAIS username=username password=password
     #path('api-token-auth/', views.obtain_auth_token),

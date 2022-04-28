@@ -14,11 +14,13 @@ message_401 = "Acesso Restrito: Você não possui direitos de acesso a este recu
 
 # VALIDA SE PK EXISTE
 def checkPK(pk, table):
-    try:
+    valida_pk = table.objects.filter(pk=pk).exists()
+    if valida_pk == True:
         getOne = table.objects.get(pk=pk)
         return getOne
-    except getOne.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+    elif valida_pk == False:
+        return valida_pk
+
 
 def getAllTable(table, ModelSerializer):
     dados_tabela = table.objects.all()
@@ -27,6 +29,20 @@ def getAllTable(table, ModelSerializer):
 
 def postData(request, ModelSerializer):
     serializer = ModelSerializer(data=request.data)
+    if ModelSerializer == "usrCleSerializer":
+        id_usuario = request.data.get('fk_usr_id')
+        cnpj_terceiro = request.data.get('fk_cle_cnpj')
+        historicoUsuarioTerceiro(id_usuario, cnpj_terceiro)
+
+    if ModelSerializer == "vteUsrSerializer":
+        get_vte = tbVersaoTermo.objects.get(vte_id=request.data.get('fk_vte_id'))
+        versao_termo = get_vte.vte_versao
+        nome_termo = get_vte.fk_ter_id.ter_nome
+        id_usuario = request.data.get('fk_usr_id')
+        user = User.objects.get(id=id_usuario)
+        nome_completo_usuario = user.first_name + " " + user.last_name
+        historicoAceiteUsuarioTermo(versao_termo, nome_termo, id_usuario, nome_completo_usuario)
+
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -74,6 +90,10 @@ def getOneList(request, pk, table, ModelSerializer, grupo_view):
             valida_grupo = True
 
     get_data = checkPK(pk, table)
+
+    if get_data == False:
+        return Response("ID inexistente!! ", status=status.HTTP_404_NOT_FOUND)
+
     if request.method == 'GET':
         if request.user.is_superuser or valida_grupo == True:
             return getOneTable(get_data, ModelSerializer)
@@ -107,6 +127,7 @@ def createUser(request, User):
         if key == "usr_telefone":
              profile.usr_telefone = value
     profile.save()
+
     return username
 
 
@@ -146,6 +167,8 @@ def getAllUsers(request, table, readOnlyUserSerializer , UserSerializer):
                 username = createUser(request, table)
                 try:
                     user = table.objects.get(username=username)
+                    nome_completo = user.first_name + " " + user.last_name
+                    historicoCriacaoUsuario(user.id, nome_completo, user.email)
                 except table.DoesNotExist:
                     return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -157,16 +180,26 @@ def getAllUsers(request, table, readOnlyUserSerializer , UserSerializer):
 
 def getOneUser(request, pk, table, readOnlyUserSerializer, UserSerializer):
     if request.user.is_superuser:
+
         getOne = checkPK(pk, table)
+
+        if getOne == False:
+            return Response("ID inexistente!! ", status=status.HTTP_404_NOT_FOUND)
+
+        user = User.objects.get(id=pk)
+        nome_completo = user.first_name + " " + user.last_name
+
         if request.method == 'GET':
             serializer = readOnlyUserSerializer(getOne)
             return Response(serializer.data)
         elif request.method == 'PUT':
             serializer = UserSerializer(getOne, data=request.data)
             if serializer.is_valid():
+                historicoAtualizacaoUsuario(pk, nome_completo, user.email)
                 return updateUser(request, pk, getOne, table, readOnlyUserSerializer)
             return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
         elif request.method == 'DELETE':
+            historicoExclusaoUsuario(pk, nome_completo, user.email)
             getOne.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
     else:
@@ -184,16 +217,33 @@ def addRemoveUsrGrupo(request, usrGpaSerializer, groupsUserSerializer, acao):
             except:
                 return Response("Usuário ou Grupo inexistente!",status=status.HTTP_404_NOT_FOUND)
 
+            # VALIDAR SE USUÁRIO É TERCEIRO
+            validaUsuarioTerceiro = tb_usr_cle.objects.filter(fk_usr_id=user.id).exists()
+
             # CASO EXISTA, REALIZAR A ADIÇÃO OU EXCLUSÃO
             serializer = usrGpaSerializer(data=request.data)
             if serializer.is_valid():
                 if acao == "ADICIONAR":
+
                     grupo.user_set.add(user)
                     serializer = groupsUserSerializer(user)
+
+                    #INSERIR HISTÓRICO DE CRIAÇÃO
+                    if validaUsuarioTerceiro == True:
+                        cnpj_terceiro = tb_usr_cle.objects.get(fk_usr_id=user.id).fk_cle_cnpj
+                        historicoAdicaoUsuarioTerceiroGrupo(user.id, cnpj_terceiro, grupo.name)
+
+                    print("TESTE: ", serializer.data)
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
                 elif acao == "EXCLUIR":
                     grupo.user_set.remove(user)
                     serializer = groupsUserSerializer(user)
+
+                    # INSERIR HISTÓRICO DE REMOÇÃO
+                    if validaUsuarioTerceiro == True:
+                        cnpj_terceiro = tb_usr_cle.objects.get(fk_usr_id=user.id).fk_cle_cnpj
+                        historicoRemocaoUsuarioTerceiroGrupo(user.id, cnpj_terceiro, grupo.name)
+
                     return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
             else:
                 return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
@@ -204,11 +254,62 @@ def addRemoveUsrGrupo(request, usrGpaSerializer, groupsUserSerializer, acao):
 
 def addUsuarioGrupo(request,usrGpaSerializer, groupsUserSerializer):
     acao = "ADICIONAR"
-    addRemoveUsrGrupo(request, usrGpaSerializer, groupsUserSerializer, acao)
+    return addRemoveUsrGrupo(request, usrGpaSerializer, groupsUserSerializer, acao)
 
 
 def removeUsuarioGrupo(request,usrGpaSerializer, groupsUserSerializer):
     acao = "EXCLUIR"
-    addRemoveUsrGrupo(request, usrGpaSerializer, groupsUserSerializer, acao)
+    return addRemoveUsrGrupo(request, usrGpaSerializer, groupsUserSerializer, acao)
 
+
+##### MÉTODOS PARA A INSERÇÃO DE DADOS NAS TABELAS DE HISTÓRICO
+
+def historicoCriacaoUsuario(id_usuario, nome_completo, email):
+    hist_criacao_usuario = historico_criacao_usuario()
+    hist_criacao_usuario.id_usuario = id_usuario
+    hist_criacao_usuario.nome_completo = nome_completo
+    hist_criacao_usuario.email = email
+    hist_criacao_usuario.save()
+
+def historicoExclusaoUsuario(id_usuario, nome_completo, email):
+    hist_exclusao_usuario = historico_exclusao_usuario()
+    hist_exclusao_usuario.id_usuario = id_usuario
+    hist_exclusao_usuario.nome_completo = nome_completo
+    hist_exclusao_usuario.email = email
+    hist_exclusao_usuario.save()
+
+def historicoAtualizacaoUsuario(id_usuario, nome_completo, email):
+    hist_atualizacao_usuario = historico_atualizacao_usuario()
+    hist_atualizacao_usuario.id_usuario = id_usuario
+    hist_atualizacao_usuario.nome_completo = nome_completo
+    hist_atualizacao_usuario.email = email
+    hist_atualizacao_usuario.save()
+
+def historicoUsuarioTerceiro(id_usuario, cnpj_terceiro):
+    hist_usuario_terceiro = historico_usuario_terceiro()
+    hist_usuario_terceiro.id_usuario = id_usuario
+    hist_usuario_terceiro.cnpj_terceiro = cnpj_terceiro
+    hist_usuario_terceiro.save()
+
+def historicoAdicaoUsuarioTerceiroGrupo(id_usuario, cnpj_terceiro, nome_grupo):
+    hist_adicao_usuario_terceiro_grupo = historico_adicao_usuario_terceiro_grupo()
+    hist_adicao_usuario_terceiro_grupo.id_usuario = id_usuario
+    hist_adicao_usuario_terceiro_grupo.cnpj_terceiro = cnpj_terceiro
+    hist_adicao_usuario_terceiro_grupo.nome_grupo = nome_grupo
+    hist_adicao_usuario_terceiro_grupo.save()
+
+def historicoRemocaoUsuarioTerceiroGrupo(id_usuario, cnpj_terceiro, nome_grupo):
+    hist_remocao_usuario_terceiro_grupo = historico_remocao_usuario_terceiro_grupo()
+    hist_remocao_usuario_terceiro_grupo.id_usuario = id_usuario
+    hist_remocao_usuario_terceiro_grupo.cnpj_terceiro = cnpj_terceiro
+    hist_remocao_usuario_terceiro_grupo.nome_grupo = nome_grupo
+    hist_remocao_usuario_terceiro_grupo.save()
+
+def historicoAceiteUsuarioTermo(versao_termo, nome_termo, id_usuario, nome_completo_usuario):
+    hist_aceite_usuario_termo = historico_aceite_usuario_termo()
+    hist_aceite_usuario_termo.versao_termo = versao_termo
+    hist_aceite_usuario_termo.nome_termo = nome_termo
+    hist_aceite_usuario_termo.id_usuario = id_usuario
+    hist_aceite_usuario_termo.nome_completo_usuario = nome_completo_usuario
+    hist_aceite_usuario_termo.save()
 

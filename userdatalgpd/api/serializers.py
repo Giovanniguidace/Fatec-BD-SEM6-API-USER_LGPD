@@ -142,3 +142,90 @@ class groupsUserSerializer(serializers.ModelSerializer):
             'email',
             'groups'
         )
+
+# HISTÓRICOS
+
+class historicoCriacaoUsuarioSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = historico_criacao_usuario
+        fields = (
+            'id',
+            'id_usuario',
+            'nome_completo',
+            'email',
+            'data_criacao'
+        )
+
+class historicoExclusaoUsuarioSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = historico_exclusao_usuario
+        fields = (
+            'id',
+            'id_usuario',
+            'nome_completo',
+            'email',
+            'data_exclusao'
+        )
+
+class historicoAtualizacaoUsuarioSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = historico_atualizacao_usuario
+        fields = (
+            'id',
+            'id_usuario',
+            'nome_completo',
+            'email',
+            'data_atualizacao'
+        )
+
+class historicoUsuarioTerceiroSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = historico_usuario_terceiro
+        fields = (
+            'id',
+            'id_usuario',
+            'cnpj_terceiro',
+            'data_criacao'
+        )
+
+class historicoAdicaoUsuarioTerceiroGrupoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = historico_adicao_usuario_terceiro_grupo
+        fields = (
+            'id',
+            'id_usuario',
+            'cnpj_terceiro',
+            'nome_grupo',
+            'data_adicao'
+        )
+
+class historicoRemocaoUsuarioTerceiroGrupoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = historico_remocao_usuario_terceiro_grupo
+        fields = (
+            'id',
+            'id_usuario',
+            'cnpj_terceiro',
+            'nome_grupo',
+            'data_remocao'
+        )
+
+class historicoAceiteUsuarioTermoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = historico_aceite_usuario_termo
+        fields = (
+            'id',
+            'versao_termo',
+            'nome_termo',
+            'id_usuario',
+            'nome_completo_usuario',
+            'data_aceite'
+        )
+
