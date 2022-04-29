@@ -115,7 +115,7 @@ class historico_remocao_usuario_terceiro_grupo(models.Model):
 
 class historico_aceite_usuario_termo(models.Model):
     id = models.AutoField("id", primary_key=True)
-    versao_termo = models.IntegerField("Versão Termo", null=False)
+    versao_termo = models.CharField("Versão Termo", null=False, max_length=10)
     nome_termo = models.CharField("Nome Termo", max_length=50, null=False)
     id_usuario = models.IntegerField("Id Usuário", null=False)
     nome_completo_usuario = models.CharField("Nome Usuário", max_length=100, null=False)

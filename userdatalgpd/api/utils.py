@@ -29,12 +29,13 @@ def getAllTable(table, ModelSerializer):
 
 def postData(request, ModelSerializer):
     serializer = ModelSerializer(data=request.data)
-    if ModelSerializer == "usrCleSerializer":
+
+    if "usrCleSerializer" in str(ModelSerializer):
         id_usuario = request.data.get('fk_usr_id')
         cnpj_terceiro = request.data.get('fk_cle_cnpj')
         historicoUsuarioTerceiro(id_usuario, cnpj_terceiro)
 
-    if ModelSerializer == "vteUsrSerializer":
+    if "vteUsrSerializer" in str(ModelSerializer):
         get_vte = tbVersaoTermo.objects.get(vte_id=request.data.get('fk_vte_id'))
         versao_termo = get_vte.vte_versao
         nome_termo = get_vte.fk_ter_id.ter_nome
@@ -165,14 +166,13 @@ def getAllUsers(request, table, readOnlyUserSerializer , UserSerializer):
             serializer = UserSerializer(data=request.data)
             if serializer.is_valid():
                 username = createUser(request, table)
-                try:
-                    user = table.objects.get(username=username)
-                    nome_completo = user.first_name + " " + user.last_name
-                    historicoCriacaoUsuario(user.id, nome_completo, user.email)
-                except table.DoesNotExist:
-                    return Response(status=status.HTTP_404_NOT_FOUND)
+                user = table.objects.get(username=username)
+                nome_completo = user.first_name + " " + user.last_name
+                historicoCriacaoUsuario(user.id, nome_completo, user.email)
 
                 serializer = readOnlyUserSerializer(user)
+                print(user.id, nome_completo, user.email)
+
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
     else:
@@ -230,10 +230,11 @@ def addRemoveUsrGrupo(request, usrGpaSerializer, groupsUserSerializer, acao):
 
                     #INSERIR HISTÓRICO DE CRIAÇÃO
                     if validaUsuarioTerceiro == True:
-                        cnpj_terceiro = tb_usr_cle.objects.get(fk_usr_id=user.id).fk_cle_cnpj
+                        cnpj_terceiro = tb_usr_cle.objects.get(fk_usr_id=user.id).fk_cle_cnpj.cle_cnpj
+                        print("cnpj_terceiro: ", cnpj_terceiro)
                         historicoAdicaoUsuarioTerceiroGrupo(user.id, cnpj_terceiro, grupo.name)
 
-                    print("TESTE: ", serializer.data)
+
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
                 elif acao == "EXCLUIR":
                     grupo.user_set.remove(user)
@@ -241,7 +242,7 @@ def addRemoveUsrGrupo(request, usrGpaSerializer, groupsUserSerializer, acao):
 
                     # INSERIR HISTÓRICO DE REMOÇÃO
                     if validaUsuarioTerceiro == True:
-                        cnpj_terceiro = tb_usr_cle.objects.get(fk_usr_id=user.id).fk_cle_cnpj
+                        cnpj_terceiro = tb_usr_cle.objects.get(fk_usr_id=user.id).fk_cle_cnpj.cle_cnpj
                         historicoRemocaoUsuarioTerceiroGrupo(user.id, cnpj_terceiro, grupo.name)
 
                     return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
