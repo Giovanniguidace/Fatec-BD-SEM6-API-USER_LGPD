@@ -21,6 +21,8 @@ class profileSerializer(serializers.ModelSerializer):
             'user',
             'usr_cpf',
             'usr_telefone',
+            'usr_conteudoMarketing',
+            'usr_aceitaCookies',
             'usr_datacriacao',
             'usr_dataatualizacao'
         )

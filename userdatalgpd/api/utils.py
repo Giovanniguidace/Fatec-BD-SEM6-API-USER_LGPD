@@ -127,6 +127,11 @@ def createUser(request, User):
             profile.usr_cpf = value
         if key == "usr_telefone":
              profile.usr_telefone = value
+        if key == "usr_conteudoMarketing":
+            profile.usr_conteudoMarketing = value
+        if key == "usr_aceitaCookies":
+            profile.usr_aceitaCookies = value
+
     profile.save()
 
     return username
@@ -147,6 +152,10 @@ def updateUser(request, pk,getOne, User, ModelSerializer):
             profile.usr_cpf = value
         if key == "usr_telefone":
             profile.usr_telefone = value
+        if key == "usr_conteudoMarketing":
+            profile.usr_conteudoMarketing = value
+        if key == "usr_aceitaCookies":
+            profile.usr_aceitaCookies = value
     profile.save()
 
     try:

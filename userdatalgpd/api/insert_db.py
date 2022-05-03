@@ -7,7 +7,8 @@ grupos = [ "READ_USERS",
            "READ_PROFILES",
            "READ_LOGS",
            "READ_CLIENTES_EXTERNOS",
-           "READ_TERMOS"
+           "READ_TERMOS",
+           "READ_HISTORICOS",
            ]
 
 def createGroups():
