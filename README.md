@@ -244,7 +244,7 @@ OBS.: É preciso executar estes comandos na raiz do projeto, onde o arquivo mana
 
 ## :books: Documentação da API
 
-Para facilitar a vida dos usuários que farão uso da API, é de grande ajuda que ela seja documentada. Para isto, através da lib drf-yasg, que é foi integrada ao Django, disponibilizamos duas rotas de documentação, para as aplicações Swagger e Redoc.
+Para facilitar a vida dos usuários que farão uso da API, é de grande ajuda que ela seja documentada. Para isto, através da lib drf-yasg, que foi integrada ao Django, disponibilizamos duas rotas de documentação, para as aplicações Swagger e Redoc.
 
 Para realizar acesso à documentação, utilize as rotas abaixo:
 
