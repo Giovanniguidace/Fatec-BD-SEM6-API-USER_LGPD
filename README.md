@@ -34,6 +34,7 @@ O objetivo da aplicação é atender a LGPD nos quesitos abaixo:
 * [PostMan (Para Testes)](https://www.postman.com/)
 * [PsycoPG2 2.9.3](https://pypi.org/project/psycopg2/)
 * [PyJWT 2.3.0](https://pyjwt.readthedocs.io/en/stable/)
+* [DRF-YASG 1.20](https://drf-yasg.readthedocs.io/en/stable/)
 
 
 ## <b> :wrench: Desenvolvimento da Aplicação: </b>
@@ -241,5 +242,24 @@ python3 manage.py runserver
 OBS.: É preciso executar estes comandos na raiz do projeto, onde o arquivo manage.py está localizado.
 
 
+## :books: Documentação da API
+
+Para facilitar a vida dos usuários que farão uso da API, é de grande ajuda que ela seja documentada. Para isto, através da lib drf-yasg, que é foi integrada ao Django, disponibilizamos duas rotas de documentação, para as aplicações Swagger e Redoc.
+
+Para realizar acesso à documentação, utilize as rotas abaixo:
+
+Swagger:
+http://localhost:8000/api/docs
+
+Redoc:
+http://localhost:8000/api/redoc/
+
+
+Imagem ilustrativa para Swagger:
+
+![image](https://user-images.githubusercontent.com/62898187/167182440-56cc0f27-e6a4-46f0-af01-477f47287010.png)
+Imagem ilustrativa para Redoc:
+
+![image](https://user-images.githubusercontent.com/62898187/167182564-a607edea-ee8c-452e-90fe-ddcfbf6afde9.png)
 
 
