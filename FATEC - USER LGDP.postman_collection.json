@@ -1,0 +1,1143 @@
+{
+	"info": {
+		"_postman_id": "83338f8b-65ef-41ec-86ff-a83d7c21f351",
+		"name": "FATEC - USER LGDP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "TOKEN DE ACESSO",
+			"item": [
+				{
+					"name": "GET TOKEN USER SUPER USER WITH POST",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "username",
+								"value": "admin",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "password",
+								"value": "admin",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n    \"username\": \"admin\",\n    \"password\": \"admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/token/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"token",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET TOKEN USER TERCEIRO",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "REFRESH TOKEN USER WITH POST Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "USUÁRIO DO SISTEMA",
+			"item": [
+				{
+					"name": "GET USUARIOS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "PUT  USUARIO",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "POST USUARIO",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUwMjIzNDk0LCJpYXQiOjE2NTAyMjIyMjgsImp0aSI6ImE5OWVkMzljYjcxMDQzNDc5YzhiYTA4MjgwNDIzZjQ3IiwidXNlcl9pZCI6MX0.BGXRYRuZAqGX-E7nvSMyuulhM5qQsfLn_H_uFIjkwq8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUwMjIyOTM2LCJpYXQiOjE2NTAyMjIyMjgsImp0aSI6IjUxMjJhYTk0YzJlZjQwYTg5YWU2Y2JlY2M4NTQwYTUxIiwidXNlcl9pZCI6MX0.MiqwkGHjN-yaCtshKiFae7AsPre6o2HjRXSWtCWEMgU",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cle_cnpj\": 49177520000147,\n    \"cle_razaosocial\": \"Pedreira Massaguaçu\",\n    \"cle_unidade\": \"Matriz\",\n    \"cle_ie\": \"9878787457\",\n    \"cle_im\": \"43423423443\",\n    \"cle_endereco\": \"Rodovia SP 55 GETUBA\",\n    \"cle_numero\": \"s/n\",\n    \"cle_complemento\": \"beira da rodovia\",\n    \"cle_bairro\": \"Getuba\",\n    \"cle_cep\": \"11677-000\",\n    \"cle_cidade\": \"Caraguatatuba\",\n    \"cle_uf\": \"SP\",\n    \"cle_fone1\": \"12 3889 0010\",\n    \"cle_cel\": \"12 322323233\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/usuarios/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"usuarios",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE USUARIO",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUwMjIzNDk0LCJpYXQiOjE2NTAyMjIyMjgsImp0aSI6ImE5OWVkMzljYjcxMDQzNDc5YzhiYTA4MjgwNDIzZjQ3IiwidXNlcl9pZCI6MX0.BGXRYRuZAqGX-E7nvSMyuulhM5qQsfLn_H_uFIjkwq8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUwMjIyOTM2LCJpYXQiOjE2NTAyMjIyMjgsImp0aSI6IjUxMjJhYTk0YzJlZjQwYTg5YWU2Y2JlY2M4NTQwYTUxIiwidXNlcl9pZCI6MX0.MiqwkGHjN-yaCtshKiFae7AsPre6o2HjRXSWtCWEMgU",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cle_cnpj\": 49177520000147,\n    \"cle_razaosocial\": \"Pedreira Massaguaçu\",\n    \"cle_unidade\": \"Matriz\",\n    \"cle_ie\": \"9878787457\",\n    \"cle_im\": \"43423423443\",\n    \"cle_endereco\": \"Rodovia SP 55 GETUBA\",\n    \"cle_numero\": \"s/n\",\n    \"cle_complemento\": \"beira da rodovia\",\n    \"cle_bairro\": \"Getuba\",\n    \"cle_cep\": \"11677-000\",\n    \"cle_cidade\": \"Caraguatatuba\",\n    \"cle_uf\": \"SP\",\n    \"cle_fone1\": \"12 3889 0010\",\n    \"cle_cel\": \"12 322323233\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/usuarios/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"usuarios",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "USUÁRIOS TERCEIROS",
+			"item": [
+				{
+					"name": "GET EMPRESAS",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUwMzMzNTY1LCJpYXQiOjE2NTAzMjI1MjEsImp0aSI6IjY2Y2UwMmQ3ZjA1NTQ4NmViZTkyYTg1NDBjMDA5NjdmIiwidXNlcl9pZCI6MX0.87r6MWEEvdM31l61fZX5Q6G-LJNZcFNcs8n6tGSduVg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/grupos/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"grupos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET EMPRESA",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUwMzMzNTY1LCJpYXQiOjE2NTAzMjI1MjEsImp0aSI6IjY2Y2UwMmQ3ZjA1NTQ4NmViZTkyYTg1NDBjMDA5NjdmIiwidXNlcl9pZCI6MX0.87r6MWEEvdM31l61fZX5Q6G-LJNZcFNcs8n6tGSduVg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/grupos/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"grupos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST EMPRESA",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUwMzMzNTY1LCJpYXQiOjE2NTAzMjI1MjEsImp0aSI6IjY2Y2UwMmQ3ZjA1NTQ4NmViZTkyYTg1NDBjMDA5NjdmIiwidXNlcl9pZCI6MX0.87r6MWEEvdM31l61fZX5Q6G-LJNZcFNcs8n6tGSduVg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/clientesExternos/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"clientesExternos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT EMPRESA",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUwMzMzNTY1LCJpYXQiOjE2NTAzMjI1MjEsImp0aSI6IjY2Y2UwMmQ3ZjA1NTQ4NmViZTkyYTg1NDBjMDA5NjdmIiwidXNlcl9pZCI6MX0.87r6MWEEvdM31l61fZX5Q6G-LJNZcFNcs8n6tGSduVg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/clientesExternos/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"clientesExternos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE EMPRESA",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUwMzMzNTY1LCJpYXQiOjE2NTAzMjI1MjEsImp0aSI6IjY2Y2UwMmQ3ZjA1NTQ4NmViZTkyYTg1NDBjMDA5NjdmIiwidXNlcl9pZCI6MX0.87r6MWEEvdM31l61fZX5Q6G-LJNZcFNcs8n6tGSduVg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/clientesExternos/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"clientesExternos",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "USR CLE",
+			"item": [
+				{
+					"name": "GET ALL USR CLE",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUwMzMzNTY1LCJpYXQiOjE2NTAzMjI1MjEsImp0aSI6IjY2Y2UwMmQ3ZjA1NTQ4NmViZTkyYTg1NDBjMDA5NjdmIiwidXNlcl9pZCI6MX0.87r6MWEEvdM31l61fZX5Q6G-LJNZcFNcs8n6tGSduVg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n     \n    \"fk_usr_id\": ,\n    \"fk_cle_cnpj\": \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/clientesExternosUsuarios/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"clientesExternosUsuarios",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST USR CLE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUwMzMzNTY1LCJpYXQiOjE2NTAzMjI1MjEsImp0aSI6IjY2Y2UwMmQ3ZjA1NTQ4NmViZTkyYTg1NDBjMDA5NjdmIiwidXNlcl9pZCI6MX0.87r6MWEEvdM31l61fZX5Q6G-LJNZcFNcs8n6tGSduVg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n     \n    \"fk_usr_id\": ,\n    \"fk_cle_cnpj\": \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/clientesExternosUsuarios/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"clientesExternosUsuarios",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT USR CLE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUwMzMzNTY1LCJpYXQiOjE2NTAzMjI1MjEsImp0aSI6IjY2Y2UwMmQ3ZjA1NTQ4NmViZTkyYTg1NDBjMDA5NjdmIiwidXNlcl9pZCI6MX0.87r6MWEEvdM31l61fZX5Q6G-LJNZcFNcs8n6tGSduVg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n     \n    \"fk_usr_id\": ,\n    \"fk_cle_cnpj\": \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/clientesExternosUsuarios/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"clientesExternosUsuarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE USR CLE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUwMzMzNTY1LCJpYXQiOjE2NTAzMjI1MjEsImp0aSI6IjY2Y2UwMmQ3ZjA1NTQ4NmViZTkyYTg1NDBjMDA5NjdmIiwidXNlcl9pZCI6MX0.87r6MWEEvdM31l61fZX5Q6G-LJNZcFNcs8n6tGSduVg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n     \n    \"fk_usr_id\": ,\n    \"fk_cle_cnpj\": \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/clientesExternosUsuarios/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"clientesExternosUsuarios",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "USUARIO X GRUPO",
+			"item": [
+				{
+					"name": "ADD USUARIO GRUPO",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUwMzM1MDc0LCJpYXQiOjE2NTAzMjI1MjEsImp0aSI6ImFjMjBhYWY3N2I4NjQ4ZjRhMTFkYjEyYjMzNDg3MTc4IiwidXNlcl9pZCI6MX0.d-Mgfh9LqD7BECKv49DBHa9OfY-jfliruKIjLI2DRAM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/usuarios/addgrupo/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"usuarios",
+								"addgrupo",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "REMOVE USUARIO GRUPO",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUwMzM1MDc0LCJpYXQiOjE2NTAzMjI1MjEsImp0aSI6ImFjMjBhYWY3N2I4NjQ4ZjRhMTFkYjEyYjMzNDg3MTc4IiwidXNlcl9pZCI6MX0.d-Mgfh9LqD7BECKv49DBHa9OfY-jfliruKIjLI2DRAM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/usuarios/addgrupo/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"usuarios",
+								"addgrupo",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GRUPOS",
+			"item": [
+				{
+					"name": "GET GRUPOS",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUwMzMzNTY1LCJpYXQiOjE2NTAzMjI1MjEsImp0aSI6IjY2Y2UwMmQ3ZjA1NTQ4NmViZTkyYTg1NDBjMDA5NjdmIiwidXNlcl9pZCI6MX0.87r6MWEEvdM31l61fZX5Q6G-LJNZcFNcs8n6tGSduVg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/grupos/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"grupos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE GRUPOS",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUwMzMzNTY1LCJpYXQiOjE2NTAzMjI1MjEsImp0aSI6IjY2Y2UwMmQ3ZjA1NTQ4NmViZTkyYTg1NDBjMDA5NjdmIiwidXNlcl9pZCI6MX0.87r6MWEEvdM31l61fZX5Q6G-LJNZcFNcs8n6tGSduVg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/grupos/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"grupos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST GRUPOS",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUwMzMyMTExLCJpYXQiOjE2NTAzMjI1MjEsImp0aSI6IjBhZTJkMjNkMTQxNzQxMWJhYmNlOGI2ZGNlZjE0ZTI2IiwidXNlcl9pZCI6MX0.kshxv0iNaXe7qLY0lvTF_lh0uNA-W_uhTpLafETw544",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/grupos/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"grupos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT GRUPO",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUwMzMyMTExLCJpYXQiOjE2NTAzMjI1MjEsImp0aSI6IjBhZTJkMjNkMTQxNzQxMWJhYmNlOGI2ZGNlZjE0ZTI2IiwidXNlcl9pZCI6MX0.kshxv0iNaXe7qLY0lvTF_lh0uNA-W_uhTpLafETw544",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/grupos/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"grupos",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TERMOS E VERÕES DE TERMOS",
+			"item": [
+				{
+					"name": "GET TERMOS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "GET TERMO",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "PUT TERMO",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "POST TERMO",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/termos/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"termos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE TERMO",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/termos/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"termos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET VERSÕES TERMOS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/versoesTermos/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"versoesTermos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST VERSÕES TERMOS",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/versoesTermos/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"versoesTermos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT VERSÃO TERMO",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/versoesTermos/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"versoesTermos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE VERSÃO TERMO",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/versoesTermos/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"versoesTermos",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "USR VTE",
+			"item": [
+				{
+					"name": "GET ALL USR VTE",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "GET ONE USR VTE",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "POST USR VTE",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "PUT USR VTE",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/termosUsuarios/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"termosUsuarios",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE USR VTE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/termosUsuarios/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"termosUsuarios",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "HISTÓRICO DA APLICAÇÃO",
+			"item": [
+				{
+					"name": "HISTORICO CRIACAO USUARIO",
+					"item": [
+						{
+							"name": "GET ALL HISTORICO CRIACAO USUARIO",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						},
+						{
+							"name": "GET ONE HISTORICO CRIACAO USUARIO",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "HISTORICO EXCLUSAO USUARIO",
+					"item": [
+						{
+							"name": "GET ALL HISTORICO EXCLUSAO USUARIO",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						},
+						{
+							"name": "GET ONE HISTORICO EXCLUSAO USUARIO Copy",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "HISTORICO ATUALIZACAO USUARIO",
+					"item": [
+						{
+							"name": "GET ALL HISTORICO ATUALIZACAO USUARIO",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						},
+						{
+							"name": "GET ONE HISTORICO ATUALIZACAO USUARIO",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "HISTORICO USUARIOS TERCEIRO",
+					"item": [
+						{
+							"name": "GET ALL HISTORICO USUARIOS TERCEIRO",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						},
+						{
+							"name": "GET ONE HISTORICO USUARIOS TERCEIRO",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "HISTORICO ADICAO USUARIOS TERCEIRO EM GRUPO",
+					"item": [
+						{
+							"name": "GET ALL HISTORICO ADICAO USUARIO TERCEIRO EM GRUPO",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						},
+						{
+							"name": "GET ONE HISTORICO ADICAO USUARIO TERCEIRO EM GRUPO",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "HISTORICO REMOCAO USUARIOS TERCEIRO EM GRUPO",
+					"item": [
+						{
+							"name": "GET ALL HISTORICO REMOCAO USUARIO TERCEIRO EM GRUPO",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						},
+						{
+							"name": "GET ONE HISTORICO REMOCAO USUARIO TERCEIRO EM GRUPO",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "HISTORICO ACEITE USUARIOS TERMO",
+					"item": [
+						{
+							"name": "GET ALL HISTORICO ACEITE USUARIOS TERMO",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						},
+						{
+							"name": "GET ONE HISTORICO ACEITE USUARIOS TERMO",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
