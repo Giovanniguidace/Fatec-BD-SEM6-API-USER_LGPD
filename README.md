@@ -192,3 +192,54 @@ Para atender as exigências da LGPD, foi desenvolvido um sistema de históricos,
 
 * Aceite de usuário em relação ao termo de responsabilidade;
 ![image](https://user-images.githubusercontent.com/62898187/167154440-377b5e2b-6abd-489f-8efb-6a9b1f00bbe0.png)
+
+## :zap: Execução da Aplicação
+
+
+### Iniciando o projeto 
+
+Neste projeto, foi configurado banco de dados PostgreSQL localmente. Para que seja possível executar esta aplicação em outra máquina, será preciso criar o banco de acordo com a seguinte configuração:
+
+```python
+DATABASES = {  
+  'default': {  
+  'ENGINE': 'django.db.backends.postgresql',  
+        'NAME': 'db_userlgpd',  
+        'USER': 'postgres',  
+        'PASSWORD': 'pg@123',  
+        'HOST': 'localhost',  
+        'PORT': '5432',  
+    }  
+}
+```
+
+As credenciais de acesso poderão ser configuradas da forma como desejar.
+
+Após a criação do banco e inserção das configurações de acesso no arquivo settings.py, é preciso migrar os models do projeto para o banco de dados, com o seguinte comando:
+
+```python
+python manage.py migrate
+```
+
+Após executar este comando, é preciso criar um Super User, com o seguinte comando:
+
+```python
+python3 manage.py createsuperuser
+```
+
+Este usuário possuirá acesso total à aplicação.
+
+
+Para executar a aplicação, digite o seguinte comando:
+
+```cmd
+python3 manage.py runserver
+```
+
+
+
+OBS.: É preciso executar estes comandos na raiz do projeto, onde o arquivo manage.py está localizado.
+
+
+
+
